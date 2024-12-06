@@ -5,14 +5,19 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>StudentEnrollment</RootNamespace>
+        <UserSecretsId>a25c5186-3351-453b-8c77-33386009d329</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\StudentEnrollment.Domain\StudentEnrollment.Domain.csproj" />
+        <ProjectReference Include="..\StudentEnrollment.Domain\StudentEnrollment.Domain.csproj"/>
     </ItemGroup>
 
 </Project>
