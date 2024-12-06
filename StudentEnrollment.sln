@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrollment", "StudentEnrollment\StudentEnrollment.csproj", "{EEC177A2-677B-4146-BA1C-A334600D5C66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrollment.Api", "StudentEnrollment.Api\StudentEnrollment.Api.csproj", "{EEC177A2-677B-4146-BA1C-A334600D5C66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
