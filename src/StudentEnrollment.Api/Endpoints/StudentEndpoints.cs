@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
+using Carter;
 using StudentEnrollment.Data.Contracts;
 using StudentEnrollment.Data.Models;
 using StudentEnrollment.DTOs.Student;
 
 namespace StudentEnrollment.Endpoints;
 
-public static class StudentEndpoints
+public class StudentEndpoints : ICarterModule
 {
-    public static void MapStudentEndpoints(this IEndpointRouteBuilder app)
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("api/students");
 

@@ -1,3 +1,4 @@
+using Carter;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Configurations;
 using StudentEnrollment.Data.Contracts;
@@ -11,6 +12,7 @@ var conn = builder.Configuration.GetConnectionString("StudentEnrollmentDbConnect
 
 // Add services to the container.
 builder.Services.AddDbContext<StudentEnrollmentDbContext>(options => { options.UseSqlServer(conn); });
+builder.Services.AddCarter();
 builder.Services.AddOpenApi();
 builder.Services.AddCors(options =>
 {
@@ -27,10 +29,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) app.MapOpenApi();
 
+app.MapCarter();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-app.MapStudentEndpoints();
 app.MapCourseEndpoints();
 app.MapEnrollmentEndpoints();
 
