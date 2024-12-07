@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Carter;
+using Microsoft.AspNetCore.Http.HttpResults;
 using StudentEnrollment.Data.Contracts;
 using StudentEnrollment.Data.Models;
 using StudentEnrollment.DTOs.Student;
@@ -10,35 +11,30 @@ public class StudentEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("api/students");
+        var group = app.MapGroup("api/students").WithTags(nameof(Student));
 
         group.MapGet("", GetAllStudents)
-            .WithTags(nameof(Student))
             .WithName(nameof(GetAllStudents))
             .Produces<List<StudentDto>>();
 
         group.MapGet("{id}", GetStudentById)
-            .WithTags(nameof(Student))
             .WithName(nameof(GetStudentById))
             .Produces<StudentDto>()
             .Produces(StatusCodes.Status404NotFound);
 
         group.MapPut("{id}", UpdateStudent)
-            .WithTags(nameof(Student))
             .WithName(nameof(UpdateStudent))
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status204NoContent);
 
         group.MapPost("", CreateStudent)
-            .WithTags(nameof(Student))
             .WithName(nameof(CreateStudent))
             .Produces<Student>(StatusCodes.Status201Created);
 
         group.MapDelete("{id}", DeleteStudent)
-            .WithTags(nameof(Student))
             .WithName(nameof(DeleteStudent))
-            .Produces<Student>()
-            .Produces(StatusCodes.Status404NotFound);
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status204NoContent);
     }
 
     private static async Task<IResult> GetAllStudents(IStudentRepository repo, IMapper mapper)
@@ -46,28 +42,30 @@ public class StudentEndpoints : ICarterModule
         var students = await repo.GetAllAsync();
         var data = mapper.Map<List<StudentDto>>(students);
 
-        return Results.Ok(data);
+        return TypedResults.Ok(data);
     }
 
-    private static async Task<IResult> GetStudentById(int id, IStudentRepository repo, IMapper mapper)
+    private static async Task<Results<NotFound, Ok<StudentDto>>> GetStudentById(int id, IStudentRepository repo,
+        IMapper mapper)
     {
         var model = await repo.GetAsync(id);
 
-        return model is null ? Results.NotFound() : Results.Ok(mapper.Map<StudentDto>(model));
+        return model is null ? TypedResults.NotFound() : TypedResults.Ok(mapper.Map<StudentDto>(model));
     }
 
-    private static async Task<IResult> UpdateStudent(int id, StudentDto studentDto, IStudentRepository repo,
+    private static async Task<Results<NoContent, NotFound>> UpdateStudent(int id, StudentDto studentDto,
+        IStudentRepository repo,
         IMapper mapper)
     {
         var foundModel = await repo.GetAsync(id);
 
-        if (foundModel is null) return Results.NotFound();
+        if (foundModel is null) return TypedResults.NotFound();
 
         mapper.Map(studentDto, foundModel);
 
         await repo.UpdateAsync(foundModel);
 
-        return Results.NoContent();
+        return TypedResults.NoContent();
     }
 
     private static async Task<IResult> CreateStudent(CreateStudentDto studentDto, IStudentRepository repo,
@@ -77,11 +75,11 @@ public class StudentEndpoints : ICarterModule
 
         await repo.AddAsync(student);
 
-        return Results.Created($"/Students/{student.Id}", student);
+        return TypedResults.Created($"/Students/{student.Id}", student);
     }
 
-    private static async Task<IResult> DeleteStudent(int id, IStudentRepository repo)
+    private static async Task<Results<NoContent, NotFound>> DeleteStudent(int id, IStudentRepository repo)
     {
-        return await repo.DeleteAsync(id) ? Results.NoContent() : Results.NotFound();
+        return await repo.DeleteAsync(id) ? TypedResults.NoContent() : TypedResults.NotFound();
     }
 }
