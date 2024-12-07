@@ -5,12 +5,10 @@ using StudentEnrollment.Data.DbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
-});
+var conn = builder.Configuration.GetConnectionString("StudentEnrollmentDbConnection");
 
 // Add services to the container.
+builder.Services.AddDbContext<StudentEnrollmentDbContext>(options => { options.UseSqlServer(conn); });
 builder.Services.AddOpenApi();
 builder.Services.AddCors(options =>
 {
