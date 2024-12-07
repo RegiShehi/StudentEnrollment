@@ -8,6 +8,6 @@ public class EnrollmentDto
     public int CourseId { get; set; }
     public int StudentId { get; set; }
 
-    public CourseDto Course { get; set; }
-    public StudentDto Student { get; set; }
+    public required CourseDto Course { get; set; }
+    public required StudentDto Student { get; set; }
 }
