@@ -12,7 +12,6 @@ public static class StudentEndpoints
         routes.MapGet("/api/Student", async (IStudentRepository repo, IMapper mapper) =>
             {
                 var students = await repo.GetAllAsync();
-                ;
                 var data = mapper.Map<List<StudentDto>>(students);
                 return data;
             })
@@ -31,9 +30,9 @@ public static class StudentEndpoints
             .Produces<StudentDto>()
             .Produces(StatusCodes.Status404NotFound);
 
-        routes.MapGet("/api/Student/GetDetails/{id}", async (int Id, IStudentRepository repo, IMapper mapper) =>
+        routes.MapGet("/api/Student/GetDetails/{id}", async (int id, IStudentRepository repo, IMapper mapper) =>
             {
-                var model = await repo.GetStudentDetails(Id);
+                var model = await repo.GetStudentDetails(id);
 
                 return model is null ? Results.NotFound() : Results.Ok(mapper.Map<StudentDetailsDto>(model));
             })
@@ -43,9 +42,9 @@ public static class StudentEndpoints
             .Produces(StatusCodes.Status404NotFound);
 
         routes.MapPut("/api/Student/{id}",
-                async (int Id, StudentDto studentDto, IStudentRepository repo, IMapper mapper) =>
+                async (int id, StudentDto studentDto, IStudentRepository repo, IMapper mapper) =>
                 {
-                    var foundModel = await repo.GetAsync(Id);
+                    var foundModel = await repo.GetAsync(id);
 
                     if (foundModel is null) return Results.NotFound();
                     //update model properties here
@@ -73,7 +72,7 @@ public static class StudentEndpoints
                     await repo.DeleteAsync(id) ? Results.NoContent() : Results.NotFound())
             .WithTags(nameof(Student))
             .WithName("DeleteStudent")
-            .Produces<Student>(StatusCodes.Status200OK)
+            .Produces<Student>()
             .Produces(StatusCodes.Status404NotFound);
     }
 }

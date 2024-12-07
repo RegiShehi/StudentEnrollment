@@ -32,5 +32,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 app.MapStudentEndpoints();
+app.MapCourseEndpoints();
+app.MapEnrollmentEndpoints();
 
 app.Run();
