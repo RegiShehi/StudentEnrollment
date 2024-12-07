@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Data.Configurations;
+using StudentEnrollment.Data.Models;
 
 namespace StudentEnrollment.Data.DbContext;
 

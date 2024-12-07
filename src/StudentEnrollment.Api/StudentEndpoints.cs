@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Data;
 using StudentEnrollment.Data.DbContext;
+using StudentEnrollment.Data.Models;
 
 namespace StudentEnrollment;
 

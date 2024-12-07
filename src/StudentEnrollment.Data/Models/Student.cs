@@ -1,4 +1,4 @@
-﻿namespace StudentEnrollment.Data;
+﻿namespace StudentEnrollment.Data.Models;
 
 public class Student : BaseEntity
 {
@@ -7,4 +7,6 @@ public class Student : BaseEntity
     public DateTime DateOfBirth { get; set; }
     public string? IdNumber { get; set; }
     public string? Picture { get; set; }
+
+    public List<Enrollment> Enrollments { get; set; } = [];
 }
