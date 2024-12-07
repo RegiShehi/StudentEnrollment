@@ -4,6 +4,7 @@ using StudentEnrollment.Configurations;
 using StudentEnrollment.Data.Contracts;
 using StudentEnrollment.Data.DbContext;
 using StudentEnrollment.Data.Repositories;
+using StudentEnrollment.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
