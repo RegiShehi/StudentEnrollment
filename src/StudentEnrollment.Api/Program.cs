@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using StudentEnrollment;
 using StudentEnrollment.Configurations;
 using StudentEnrollment.Data.Contracts;
 using StudentEnrollment.Data.DbContext;
