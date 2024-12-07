@@ -4,5 +4,5 @@ namespace StudentEnrollment.Data.Contracts;
 
 public interface ICourseRepository : IGenericRepository<Course>
 {
-    Task<Course> GetStudentList(int courseId);
+    Task<Course?> GetStudentList(int courseId);
 }
