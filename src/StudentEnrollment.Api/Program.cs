@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollment;
+using StudentEnrollment.Configurations;
 using StudentEnrollment.Data.DbContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 });
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var app = builder.Build();
 
